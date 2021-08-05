@@ -51,7 +51,7 @@ import jdk.internal.vm.annotation.Stable;
  * @since 9
  */
 @jdk.internal.ValueBased
-final class KeyValueHolder<K,V> implements Map.Entry<K,V> {
+final primitive class KeyValueHolder.val<K,V> implements Map.Entry<K,V> {
     @Stable
     final K key;
     @Stable

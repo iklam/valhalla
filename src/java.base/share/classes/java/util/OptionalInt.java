@@ -56,11 +56,11 @@ import java.util.stream.IntStream;
  * @since 1.8
  */
 @jdk.internal.ValueBased
-public final class OptionalInt {
+public final primitive class OptionalInt.val {
     /**
      * Common instance for {@code empty()}.
      */
-    private static final OptionalInt EMPTY = new OptionalInt();
+    private static final OptionalInt.val EMPTY = new OptionalInt();
 
     /**
      * If true then the value is present, otherwise indicates no value is present
