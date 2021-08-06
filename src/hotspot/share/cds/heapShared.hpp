@@ -234,15 +234,8 @@ private:
   static narrowOop _roots_narrow;
   static OopHandle _roots;
 
-  static void init_seen_objects_table() {
-    assert(_seen_objects_table == NULL, "must be");
-    _seen_objects_table = new (ResourceObj::C_HEAP, mtClass)SeenObjectsTable();
-  }
-  static void delete_seen_objects_table() {
-    assert(_seen_objects_table != NULL, "must be");
-    delete _seen_objects_table;
-    _seen_objects_table = NULL;
-  }
+  static void init_seen_objects_table();
+  static void delete_seen_objects_table();
 
   // Statistics (for one round of start_recording_subgraph ... done_recording_subgraph)
   static int _num_new_walked_objs;

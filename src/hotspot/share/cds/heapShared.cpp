@@ -61,6 +61,7 @@
 #include "runtime/safepointVerifiers.hpp"
 #include "utilities/bitMap.inline.hpp"
 #include "utilities/copy.hpp"
+#include "utilities/numberSeq.hpp"
 #if INCLUDE_G1GC
 #include "gc/g1/g1CollectedHeap.hpp"
 #endif
@@ -140,6 +141,33 @@ void HeapShared::fixup_mapped_regions() {
     }
   }
   SystemDictionaryShared::update_archived_mirror_native_pointers();
+}
+
+void HeapShared::init_seen_objects_table() {
+  assert(_seen_objects_table == NULL, "must be");
+  _seen_objects_table = new (ResourceObj::C_HEAP, mtClass)SeenObjectsTable();
+}
+
+void HeapShared::delete_seen_objects_table() {
+  assert(_seen_objects_table != NULL, "must be");
+
+  LogMessage(cds, heap, hashtables) msg;
+  if (msg.is_info()) {
+    double avg_cost = 0.0;
+    NumberSeq summary;
+    _seen_objects_table->stats(summary);
+    msg.info("HeapShared::_seen_objects_table stats ====================");
+    msg.info("Total num entries       : %9.3f", summary.sum());
+    msg.info("Total num buckets       : %9d",   summary.num());
+    msg.info("Average bucket size     : %9.3f", summary.avg());
+    msg.info("Average bucket size     : %9.3f", summary.avg());
+    msg.info("Variance of bucket size : %9.3f", summary.variance());
+    msg.info("Std. dev. of bucket size: %9.3f", summary.sd());
+    msg.info("Maximum bucket size     : %9d", (int)summary.maximum());
+    //msg.info("Empty buckets           : %9d", _num_empty_buckets);
+  }
+  delete _seen_objects_table;
+  _seen_objects_table = NULL;
 }
 
 unsigned HeapShared::oop_hash(oop const& p) {

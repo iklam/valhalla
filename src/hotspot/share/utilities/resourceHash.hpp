@@ -26,6 +26,7 @@
 #define SHARE_UTILITIES_RESOURCEHASH_HPP
 
 #include "memory/allocation.hpp"
+#include "utilities/numberSeq.hpp"
 
 template<typename K, typename V>
 class ResourceHashtableNode : public ResourceObj {
@@ -241,6 +242,20 @@ class ResourceHashtableBase : public STORAGE {
     }
   }
 
+  void stats(NumberSeq& summary) const {
+    Node* const* bucket = table();
+    const unsigned sz = table_size();
+    while (bucket < bucket_at(sz)) {
+      Node* node = *bucket;
+      int count = 0;
+      while (node != NULL) {
+        node = node->_next;
+        count ++;
+      }
+      summary.add(count);
+      ++bucket;
+    }
+  }
 };
 
 template<unsigned TABLE_SIZE, typename K, typename V>
