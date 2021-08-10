@@ -543,7 +543,7 @@ class ImmutableCollections {
     }
 
     @jdk.internal.ValueBased
-    static final class List12<E> extends AbstractImmutableList<E>
+    static final primitive class List12.val<E> extends AbstractImmutableList<E>
             implements Serializable {
 
         @Stable
@@ -650,7 +650,7 @@ class ImmutableCollections {
     }
 
     @jdk.internal.ValueBased
-    static final class ListN<E> extends AbstractImmutableList<E>
+    static final primitive class ListN.val<E> extends AbstractImmutableList<E>
             implements Serializable {
 
         @Stable
@@ -770,7 +770,7 @@ class ImmutableCollections {
     }
 
     @jdk.internal.ValueBased
-    static final class Set12<E> extends AbstractImmutableSet<E>
+    static final primitive class Set12.val<E> extends AbstractImmutableSet<E>
             implements Serializable {
 
         @Stable
@@ -896,7 +896,7 @@ class ImmutableCollections {
      * @param <E> the element type
      */
     @jdk.internal.ValueBased
-    static final class SetN<E> extends AbstractImmutableSet<E>
+    static final primitive class SetN.val<E> extends AbstractImmutableSet<E>
             implements Serializable {
 
         @Stable
@@ -1107,7 +1107,7 @@ class ImmutableCollections {
 
         @Override
         public Set<Map.Entry<K,V>> entrySet() {
-            return Set.of(new KeyValueHolder<>(k0, v0));
+            return Set.of(new KeyValueHolder<K,V>(k0, v0));
         }
 
         @Override

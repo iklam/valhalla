@@ -56,11 +56,11 @@ import java.util.stream.LongStream;
  * @since 1.8
  */
 @jdk.internal.ValueBased
-public final class OptionalLong {
+public final primitive class OptionalLong.val {
     /**
      * Common instance for {@code empty()}.
      */
-    private static final OptionalLong EMPTY = new OptionalLong();
+    private static final OptionalLong.val EMPTY = new OptionalLong();
 
     /**
      * If true then the value is present, otherwise indicates no value is present

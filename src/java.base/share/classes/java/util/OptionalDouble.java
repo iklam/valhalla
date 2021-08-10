@@ -56,11 +56,11 @@ import java.util.stream.DoubleStream;
  * @since 1.8
  */
 @jdk.internal.ValueBased
-public final class OptionalDouble {
+public final primitive class OptionalDouble.val {
     /**
      * Common instance for {@code empty()}.
      */
-    private static final OptionalDouble EMPTY = new OptionalDouble();
+    private static final OptionalDouble.val EMPTY = new OptionalDouble();
 
     /**
      * If true then the value is present, otherwise indicates no value is present

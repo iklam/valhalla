@@ -48,7 +48,7 @@ import java.util.stream.Stream;
  * @since 9
  */
 @jdk.internal.ValueBased
-final class ProcessHandleImpl implements ProcessHandle {
+final primitive class ProcessHandleImpl.val implements ProcessHandle {
     /**
      * Default size of stack for reaper processes.
      */
