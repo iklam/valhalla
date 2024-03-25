@@ -48,7 +48,8 @@ public class RewriteBytecodesInlineTest {
 
     TestCommon.dump(appJar, TestCommon.list("RewriteBytecodesInline", "Point", "WithInlinedField"),
                     // command-line arguments ...
-                    use_whitebox_jar);
+                    use_whitebox_jar,
+                    "--enable-preview");
 
     OutputAnalyzer output = TestCommon.exec(appJar,
                     // command-line arguments ...

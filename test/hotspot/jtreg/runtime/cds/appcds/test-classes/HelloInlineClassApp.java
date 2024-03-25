@@ -22,7 +22,14 @@
  *
  */
 
+import jdk.internal.vm.annotation.ImplicitlyConstructible;
+import jdk.internal.vm.annotation.LooselyConsistentValue;
+import jdk.internal.vm.annotation.NullRestricted;
+
 public class HelloInlineClassApp {
+
+    @ImplicitlyConstructible
+    @LooselyConsistentValue
     static value class Point {
         int x, y;
 
@@ -48,12 +55,19 @@ public class HelloInlineClassApp {
         }
     }
 
+    @ImplicitlyConstructible
+    @LooselyConsistentValue
     static value class Rectangle {
+        @NullRestricted
         Point p0 = new Point(0,0);
+        @NullRestricted
         Point p1 = new Point(1,1);
     }
 
+    @NullRestricted
     Point point;
+
+    @NullRestricted
     static Rectangle rectangle;
 
     public static void main(String[] args) throws Exception {

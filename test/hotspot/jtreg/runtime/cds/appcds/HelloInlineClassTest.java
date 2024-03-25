@@ -28,6 +28,8 @@
  * @requires vm.cds
  * @library /test/lib /test/hotspot/jtreg/runtime/cds/appcds/test-classes
  * @enablePreview
+ * @modules java.base/jdk.internal.value
+ *          java.base/jdk.internal.vm.annotation
  * @compile test-classes/HelloInlineClassApp.java
  * @run driver jdk.test.lib.helpers.ClassFileInstaller -jar hello_inline.jar HelloInlineClassApp HelloInlineClassApp$Point HelloInlineClassApp$Rectangle
  * @run main/othervm HelloInlineClassTest
@@ -42,7 +44,8 @@ public class HelloInlineClassTest {
         OutputAnalyzer output =
             TestCommon.dump(appJar, TestCommon.list(mainClass,
                                                     "HelloInlineClassApp$Point",
-                                                    "HelloInlineClassApp$Rectangle"));
+                                                    "HelloInlineClassApp$Rectangle"),
+                            "--enable-preview");
         output.shouldHaveExitValue(0);
 
         TestCommon.run("--enable-preview",

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -1125,10 +1125,11 @@ InstanceKlass* ClassLoader::load_class(Symbol* name, bool search_append_only, TR
     // appear in the _patch_mod_entries. The runtime shared class visibility
     // check will determine if a shared class is visible based on the runtime
     // environment, including the runtime --patch-module setting.
-    //
-    // Dynamic dumping requires UseSharedSpaces to be enabled. Since --patch-module
-    // is not supported with UseSharedSpaces, we can never come here during dynamic dumping.
-    assert(!CDSConfig::is_dumping_dynamic_archive(), "sanity");
+    if (!Arguments::enable_preview() && EnableValhalla) {
+      // Dynamic dumping requires UseSharedSpaces to be enabled. Since --patch-module
+      // is not supported with UseSharedSpaces, we can never come here during dynamic dumping.
+      assert(!CDSConfig::is_dumping_dynamic_archive(), "sanity");
+    }
     if (!CDSConfig::is_dumping_static_archive()) {
       stream = search_module_entries(THREAD, _patch_mod_entries, class_name, file_name);
     }
