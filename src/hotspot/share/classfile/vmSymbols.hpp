@@ -866,7 +866,7 @@ class vmSymbols: AllStatic {
   static Symbol* _type_signatures[T_VOID+1];
   static void initialize_migrated_class_names();
 
-  static const int _migrated_class_names_length = 31;
+  static const int _migrated_class_names_length = 30;
   static Symbol* _migrated_class_names[_migrated_class_names_length];
 
  public:

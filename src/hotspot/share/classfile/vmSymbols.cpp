@@ -332,7 +332,7 @@ void vmSymbols::initialize_migrated_class_names() {
   _migrated_class_names[i++] = java_time_YearMonth();
   _migrated_class_names[i++] = java_time_Year();
   _migrated_class_names[i++] = java_time_Period();
-  _migrated_class_names[i++] = java_time_chrono_ChronoLocalDateImpl();
+//_migrated_class_names[i++] = java_time_chrono_ChronoLocalDateImpl();
   _migrated_class_names[i++] = java_time_chrono_MinguoDate();
   _migrated_class_names[i++] = java_time_chrono_HijrahDate();
   _migrated_class_names[i++] = java_time_chrono_JapaneseDate();

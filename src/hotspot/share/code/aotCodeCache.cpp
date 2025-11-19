@@ -197,7 +197,13 @@ void AOTCodeCache::initialize() {
 
   bool is_dumping = false;
   bool is_using   = false;
-  if (CDSConfig::is_dumping_final_static_archive() && CDSConfig::is_dumping_aot_linked_classes()) {
+
+  if (CDSConfig::is_valhalla_preview()) {
+    // Not supported yet. Will crash.
+     is_dumping = false;
+     is_using = false;
+     log_info(aot, codecache, init)("AOT Code Cache is not yet supported on with valhalla preview.");
+  } else if (CDSConfig::is_dumping_final_static_archive() && CDSConfig::is_dumping_aot_linked_classes()) {
     is_dumping = true;
     enable_caching();
     is_dumping = is_caching_enabled();

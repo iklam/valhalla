@@ -195,6 +195,7 @@ static void add_migrated_value_classes(ClassLoaderData* cld) {
   JavaThread* current = JavaThread::current();
   auto add_klass = [&] (Symbol* classname) {
     InstanceKlass* ik = SystemDictionary::find_instance_klass(current, classname, Handle(current, nullptr));
+    assert(ik->is_public(), "no need to add non-public classes");
     assert(ik != nullptr, "Must exist");
     SystemDictionary::add_to_initiating_loader(current, ik, cld);
   };
@@ -214,7 +215,15 @@ ClassLoaderData* SystemDictionary::register_loader(Handle class_loader, bool cre
       bool created = false;
       ClassLoaderData* cld = ClassLoaderDataGraph::find_or_create(class_loader, created);
       if (created && Arguments::enable_preview()) {
-        add_migrated_value_classes(cld);
+        if (CDSConfig::is_using_aot_linked_classes() && java_system_loader() == nullptr) {
+          // We are inside AOTLinkedClassBulkLoader::preload_classes().
+          //
+          // AOTLinkedClassBulkLoader will automatically initiate the loading of all archived
+          // public classes from the boot loader into platform/system loaders, so there's
+          // no need to call add_migrated_value_classes().
+        } else {
+          add_migrated_value_classes(cld);
+        }
       }
       return cld;
     }
