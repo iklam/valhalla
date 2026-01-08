@@ -996,6 +996,11 @@ void AOTMapLogger::print_oop_details(FakeOop fake_oop, outputStream* st) {
 
         st->print_cr("- ---- static fields (%d):", fake_mirror.static_oop_field_count());
         real_mirrored_ik->do_local_static_fields(&print_field);
+        if (real_mirrored_ik->has_acmp_maps_offset()) {
+          FakeOop field_value = fake_oop.obj_field(real_mirrored_ik->acmp_maps_offset());
+          st->print(" - value injected 'acmp_maps' 'Ljava/lang/Object;' @%d ", real_mirrored_ik->acmp_maps_offset()); 
+          print_oop_info_cr(st, field_value);
+        }
       }
     }
   }

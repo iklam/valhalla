@@ -816,6 +816,16 @@ void HeapShared::copy_java_mirror(oop orig_mirror, oop scratch_m) {
     assert(src_hash == archived_hash, "Different hash codes: original " INTPTR_FORMAT ", archived " INTPTR_FORMAT, src_hash, archived_hash);
   }
 
+  Klass* k = java_lang_Class::as_Klass(orig_mirror);
+  if (k != nullptr && k->is_instance_klass()) {
+    InstanceKlass* ik = InstanceKlass::cast(k);
+    if (ik->has_acmp_maps_offset()) {
+      int maps_offset = ik->acmp_maps_offset();
+      oop maps = orig_mirror->obj_field(maps_offset);
+      scratch_m->obj_field_put(maps_offset, maps);
+    }
+  }
+
   if (CDSConfig::is_dumping_aot_linked_classes()) {
     java_lang_Class::set_module(scratch_m, java_lang_Class::module(orig_mirror));
     java_lang_Class::set_protection_domain(scratch_m, java_lang_Class::protection_domain(orig_mirror));

@@ -646,6 +646,10 @@ public:
   // reference type
   ReferenceType reference_type() const     { return (ReferenceType)_reference_type; }
 
+  bool has_acmp_maps_offset() const {
+    return _acmp_maps_offset != 0;
+  }
+
   int acmp_maps_offset() const {
     assert(_acmp_maps_offset != 0, "Not initialized");
     return _acmp_maps_offset;

@@ -4201,7 +4201,22 @@ void InstanceKlass::oop_print_on(oop obj, outputStream* st, int indent, int base
     Klass* real_klass = java_lang_Class::as_Klass(obj);
     if (real_klass != nullptr && real_klass->is_instance_klass()) {
       st->print_cr(BULLET"---- static fields (%d):", java_lang_Class::static_oop_field_count(obj));
-      InstanceKlass::cast(real_klass)->do_local_static_fields(&print_field);
+      InstanceKlass* ik = InstanceKlass::cast(real_klass);
+      ik->do_local_static_fields(&print_field);
+
+      if (ik->has_acmp_maps_offset()) {
+        int maps_offset = ik->acmp_maps_offset();
+        oop maps = obj->obj_field(maps_offset);
+        st->print(BULLET);
+        st->print("value injected 'acmp_maps' 'Ljava/lang/Object;' @%d ", maps_offset);
+        if (maps == nullptr) {
+          st->print("null");
+        } else {
+          st->print("a ");
+          maps->print_value_on(st);
+        }
+        st->cr();
+      }
     }
   } else if (this == vmClasses::MethodType_klass()) {
     st->print(BULLET"signature: ");

@@ -1972,7 +1972,7 @@ jint Arguments::parse_vm_init_args(GrowableArrayCHeap<VMInitArgsGroup, mtArgumen
   }
 
   if (UseAltSubstitutabilityMethod) {
-    no_shared_spaces("Alternate substitutability method doesn't work with CDS yet");
+    //no_shared_spaces("Alternate substitutability method doesn't work with CDS yet");
   }
 
   // We need to ensure processor and memory resources have been properly
