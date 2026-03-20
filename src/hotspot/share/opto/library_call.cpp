@@ -6686,9 +6686,9 @@ bool LibraryCallKit::inline_arraycopy() {
     // If destination is null-restricted, source must be null-restricted as well: src_null_restricted || !dst_null_restricted
     Node* src_klass = load_object_klass(src);
     Node* adr_prop_src = basic_plus_adr(top(), src_klass, in_bytes(ArrayKlass::properties_offset()));
-    Node* prop_src = _gvn.transform(LoadNode::make(_gvn, control(), immutable_memory(), adr_prop_src, TypeRawPtr::BOTTOM, TypeInt::INT, T_INT, MemNode::unordered));
+    Node* prop_src = _gvn.transform(LoadNode::make(_gvn, control(), immutable_memory(), adr_prop_src, _gvn.type(adr_prop_src)->is_ptr(), TypeInt::INT, T_INT, MemNode::unordered));
     Node* adr_prop_dest = basic_plus_adr(top(), refined_dest_klass, in_bytes(ArrayKlass::properties_offset()));
-    Node* prop_dest = _gvn.transform(LoadNode::make(_gvn, control(), immutable_memory(), adr_prop_dest, TypeRawPtr::BOTTOM, TypeInt::INT, T_INT, MemNode::unordered));
+    Node* prop_dest = _gvn.transform(LoadNode::make(_gvn, control(), immutable_memory(), adr_prop_dest, _gvn.type(adr_prop_dest)->is_ptr(), TypeInt::INT, T_INT, MemNode::unordered));
 
     const ArrayProperties props_null_restricted = ArrayProperties::Default().with_null_restricted();
     jint props_value = (jint)props_null_restricted.value();
