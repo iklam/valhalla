@@ -23,6 +23,7 @@
  */
 
 #include "cds/aotCompressedPointers.hpp"
+#include "cds/aotGrowableArray.inline.hpp"
 #include "cds/archiveBuilder.hpp"
 #include "cds/archiveUtils.inline.hpp"
 #include "classfile/classLoader.hpp"
@@ -4213,3 +4214,12 @@ JRT_BLOCK_ENTRY(void, SharedRuntime::store_inline_type_fields_to_buf(JavaThread*
   JRT_BLOCK_END;
 }
 JRT_END
+
+void ioi(MetaspaceClosure* it, AOTGrowableArray<SigEntry*>* a, AOTGrowableArray<SigEntry>* b) {
+  it->push(&a);
+  it->push(&b);
+}
+
+void SigEntry::metaspace_pointers_do(MetaspaceClosure* it) {
+  it->push(&_name);
+}

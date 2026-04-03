@@ -318,6 +318,7 @@ class MetaspaceObj {
   f(KlassTrainingData) \
   f(MethodTrainingData) \
   f(CompileTrainingData) \
+  f(SigEntry) \
   f(AdapterHandlerEntry) \
   f(AdapterFingerPrint)
 
