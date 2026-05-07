@@ -937,9 +937,7 @@ public final class Long extends Number
             int size = -(-128) + 127 + 1;
 
             // Load and use the archived cache if it exists
-            if (!PreviewFeatures.isEnabled()) {
-                CDS.initializeFromArchive(LongCache.class);
-            }
+            CDS.initializeFromArchive(LongCache.class);
             if (archivedCache == null) {
                 Long[] c = newCacheArray(size);
                 long value = -128;

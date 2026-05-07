@@ -9439,9 +9439,7 @@ public final class Character implements java.io.Serializable, Comparable<Charact
             int size = 127 + 1;
 
             // Load and use the archived cache if it exists
-            if (!PreviewFeatures.isEnabled()) {
-                CDS.initializeFromArchive(CharacterCache.class);
-            }
+            CDS.initializeFromArchive(CharacterCache.class);
             if (archivedCache == null) {
                 Character[] c = newCacheArray(size);
                 for (int i = 0; i < size; i++) {

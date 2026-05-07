@@ -127,9 +127,7 @@ public final class Byte extends Number implements Comparable<Byte>, Constable {
             final int size = -(-128) + 127 + 1;
 
             // Load and use the archived cache if it exists
-            if (!PreviewFeatures.isEnabled()) {
-                CDS.initializeFromArchive(ByteCache.class);
-            }
+            CDS.initializeFromArchive(ByteCache.class);
             if (archivedCache == null) {
                 Byte[] c = newCacheArray(size);
                 byte value = (byte)-128;

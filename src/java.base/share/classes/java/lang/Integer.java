@@ -935,22 +935,18 @@ public final class Integer extends Number
             high = h;
 
             Integer[] precomputed = null;
-            if (!PreviewFeatures.isEnabled()) {
-                if (cache != null) {
-                    // IntegerCache has been AOT-initialized.
-                    precomputed = cache;
-                } else {
-                    // Legacy CDS archive support (to be deprecated):
-                    // Load IntegerCache.archivedCache from archive, if possible
-                    CDS.initializeFromArchive(IntegerCache.class);
-                    precomputed = archivedCache;
-                }
+            if (cache != null) {
+                // IntegerCache has been AOT-initialized.
+                precomputed = cache;
+            } else {
+                // Legacy CDS archive support (to be deprecated):
+                // Load IntegerCache.archivedCache from archive, if possible
+                CDS.initializeFromArchive(IntegerCache.class);
+                precomputed = archivedCache;
             }
 
             cache = loadOrInitializeCache(precomputed);
-            if (!PreviewFeatures.isEnabled()) {
-                archivedCache = cache; // Legacy CDS archive support (to be deprecated)
-            }
+            archivedCache = cache; // Legacy CDS archive support (to be deprecated)
             // range [-128, 127] must be interned (JLS7 5.1.7)
             assert IntegerCache.high >= 127;
         }

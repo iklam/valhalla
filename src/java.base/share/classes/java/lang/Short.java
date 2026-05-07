@@ -254,9 +254,7 @@ public final class Short extends Number implements Comparable<Short>, Constable 
             int size = -(-128) + 127 + 1;
 
             // Load and use the archived cache if it exists
-            if (!PreviewFeatures.isEnabled()) {
-                CDS.initializeFromArchive(ShortCache.class);
-            }
+            CDS.initializeFromArchive(ShortCache.class);
             if (archivedCache == null) {
                 Short[] c = newCacheArray(size);
                 short value = -128;
