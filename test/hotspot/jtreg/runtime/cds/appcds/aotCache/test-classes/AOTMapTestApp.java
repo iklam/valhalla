@@ -43,20 +43,58 @@ public class AOTMapTestApp {
         }
     }
 
+    public static value class WrapperWrapper {
+        Wrapper w;
+
+        WrapperWrapper(int i) {
+            this.w = new Wrapper(i);
+        }
+    }
+
     // Check that arrays of both migrated value
     // classes and custom value classes are archived
     public static class ArchivedData {
         Wrapper[] wrapperArray;
+        WrapperWrapper[] wrapperWrapperArray;
+        Integer[] boxArray;
+        Object[] objArray;
+        Wrapper wrapper;
+        WrapperWrapper wrapperWrapper;
+        int a;
+        Object b;
+
+        ArchivedData() {
+            wrapperArray = new Wrapper[3]; // flattened
+            wrapperArray[0] = new Wrapper(0xaaaa);
+            wrapperArray[1] = new Wrapper(0xbbbb);
+            wrapperArray[2] = new Wrapper(0xcccc);
+
+            wrapperWrapperArray = new WrapperWrapper[3];
+            wrapperWrapperArray[0] = new WrapperWrapper(0xaaaa);
+            wrapperWrapperArray[1] = new WrapperWrapper(0xbbbb);
+            wrapperWrapperArray[2] = new WrapperWrapper(0xcccc);
+
+            boxArray = new Integer[3];  // flattened
+            boxArray[0] = new Integer(0xaaaa);
+            boxArray[1] = new Integer(0xbbbb);
+            boxArray[2] = new Integer(0xcccc);
+
+            objArray = new Object[3]; // not flattened
+            objArray[0] = new Integer(0xaaaa);
+            objArray[1] = new Integer(0xbbbb);
+            objArray[2] = new Integer(0xcccc);
+
+            wrapper = new Wrapper(0xaaaa5555);
+            wrapperWrapper = new WrapperWrapper(0xbbbb6666);
+            a = 0x7788;
+            b = new Integer(0x8899);
+        }
     }
 
     static ArchivedData archivedObjects;
     static {
         if (archivedObjects == null) {
             archivedObjects = new ArchivedData();
-            archivedObjects.wrapperArray = new Wrapper[3];
-            archivedObjects.wrapperArray[0] = new Wrapper(0);
-            archivedObjects.wrapperArray[1] = new Wrapper(1);
-            archivedObjects.wrapperArray[2] = new Wrapper(2);
         } else {
             System.out.println("Initialized from CDS");
             System.out.println("wrapperArray " + archivedObjects.wrapperArray);
